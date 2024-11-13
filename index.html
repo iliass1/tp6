@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Données de l'Aéroport</h1>
+    <button onclick="loadXML()">Charger XML et Exécuter XPath</button>
+    <div id="output"></div>
+
+    <script>
+        function loadXML() {
+
+            
+            fetch('tp6_xml.xml')  // Charger le fichier XML
+                .then(response => response.text())
+                .then(xmlText => {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+
+                    const outputDiv = document.getElementById("output");
+                    let result = "";
+
+                    // Dictionnaire pour associer chaque modèle d'avion à un ID de piste
+                    const pisteAssociee = {};
+
+                    // 1. Récupérer les associations entre avions et pistes depuis le fichier XML
+                    const avionNodes = xmlDoc.evaluate("//avions/avion", xmlDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+                    const pisteNodes = xmlDoc.evaluate("//pistes/piste", xmlDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+
+                    // Associer chaque modèle d'avion à l'ID de piste
+                    for (let i = 0; i < avionNodes.snapshotLength; i++) {
+                        const avionNode = avionNodes.snapshotItem(i);
+                        const avionId = avionNode.getElementsByTagName("id")[0].textContent;
+                        const modeleAvion = avionNode.getElementsByTagName("modele")[0].textContent;
+
+                        if (pisteNodes.snapshotItem(i)) {
+                            const pisteId = pisteNodes.snapshotItem(i).getElementsByTagName("id")[0].textContent;
+                            pisteAssociee[modeleAvion] = pisteId;
+                        }
+                    }
+
+                    // 2. Afficher les informations de chaque vol
+                    const volNodes = xmlDoc.evaluate("//vols/vol", xmlDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+
+                    for (let i = 0; i < volNodes.snapshotLength; i++) {
+                        const volNode = volNodes.snapshotItem(i);
+                        const volId = volNode.getElementsByTagName("id")[0].textContent;
+                        const heureDepart = volNode.getElementsByTagName("heure_depart")[0].textContent;
+                        const heureArrivee = volNode.getElementsByTagName("heure_arrivee")[0].textContent;
+                        const avionRef = volNode.getElementsByTagName("avion_ref")[0].textContent;
+
+                        // Récupérer le modèle de l'avion correspondant à avionRef
+                        const avionNode = xmlDoc.evaluate(`//avions/avion[id=${avionRef}]/modele`, xmlDoc, null, XPathResult.STRING_TYPE, null);
+                        const modeleAvion = avionNode.stringValue;
+
+                        // Récupérer l'ID de la piste associée au modèle d'avion
+                        const idPiste = pisteAssociee[modeleAvion] || "N/A";
+
+                        result += `<div class="vol">`;
+                        result += `<h3 style="color: blue;">Vol ${volId}</h3>`;
+                        result += `<p><strong>Date et heure de départ :</strong> ${heureDepart}</p>`;
+                        result += `<p><strong>Date et heure d'arrivée :</strong> ${heureArrivee}</p>`;
+                        result += `<p><strong>N° de piste :</strong> ${idPiste}</p>`;
+                        result += `<p><strong>Type d’avion :</strong> ${modeleAvion}</p>`;
+                        result += `</div>`;
+                    }
+
+                    outputDiv.innerHTML = result;
+                })
+                .catch(error => {
+                    console.error('Erreur de chargement du XML:', error);
+                    document.getElementById("output").textContent = "Erreur de chargement du fichier XML.";
+                });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE aeroport SYSTEM "tp6_dtd.dtd">
+<aeroport>
+
+    <employes>
+
+        <employe>
+            <id>1</id>
+            <nom>lahtani</nom>
+            <prenom>iliass</prenom>
+            <age>20</age>
+            <poste>Contrôleur aérien</poste>
+            <compagnie>Aéroport International</compagnie>
+        </employe>
+
+        <employe>
+            <id>2</id>
+            <nom>dubois</nom>
+            <prenom>marie</prenom>
+            <age>30</age>
+            <poste>Technicien de piste</poste>
+            <compagnie>Aéroport International</compagnie>
+        </employe>
+
+        <employe>
+            <id>3</id>
+            <nom>germain</nom>
+            <prenom>emillie</prenom>
+            <age>30</age>
+            <poste>Technicien de piste</poste>
+            <compagnie>Aéroport International</compagnie>
+        </employe>
+
+
+        <employe>
+            <id>4</id>
+            <nom>benjii</nom>
+            <prenom>chadii</prenom>
+            <age>30</age>
+            <poste>Technicien de piste</poste>
+            <compagnie>Aéroport International</compagnie>
+        </employe>
+
+    </employes>
+
+
+    <pistes>
+        <piste>
+            <id>1</id>
+            <nom>Piste Nord</nom>
+            <longueur>4500</longueur>
+            <etat>Disponible</etat>
+        </piste>
+        <piste>
+            <id>2</id>
+            <nom>Piste Sud</nom>
+            <longueur>3900</longueur>
+            <etat>En Réparation</etat>
+        </piste>
+
+    </pistes>
+
+
+    <compagnies>
+        <compagnie>
+            <id>1</id>
+            <nom>Lufthansa</nom>
+            <pays>Allemagne</pays>
+        </compagnie>
+        <compagnie>
+            <id>2</id>
+            <nom>Qatar Airways</nom>
+            <pays>Qatar</pays>
+        </compagnie>
+
+    </compagnies>
+
+
+    <avions>
+        <avion>
+            <id>1</id>
+            <modele>Airbus A380</modele>
+            <capacite>525</capacite>
+            <compagnie>Lufthansa</compagnie>
+        </avion>
+        <avion>
+            <id>2</id>
+            <modele>Boeing 737</modele>
+            <capacite>215</capacite>
+            <compagnie>Qatar Airways</compagnie>
+        </avion>
+
+    </avions>
+
+
+    <vols>
+        <vol>
+            <id>LH456</id>
+            <compagnie>Lufthansa</compagnie>
+            <depart>Aéroport de Francfort</depart>
+            <arrivee>Aéroport de San Francisco</arrivee>
+            <heure_depart>17/12/2024 12:00:00</heure_depart>
+            <heure_arrivee>17/12/2024 17:00:00</heure_arrivee>
+            <avion_ref>1</avion_ref>
+            <employes>
+                <employe_ref>1</employe_ref>
+                <employe_ref>2</employe_ref>
+            </employes>
+        </vol>
+        <vol>
+            <id>QR202</id>
+            <compagnie>Qatar Airways</compagnie>
+            <depart>Aéroport de Doha</depart>
+            <arrivee>Aéroport de Tokyo</arrivee>
+            <heure_depart>21/12/2024 22:30:00</heure_depart>
+            <heure_arrivee>21/12/2024 07:30:00</heure_arrivee>
+            <avion_ref>2</avion_ref>
+            <employes>
+                <employe_ref>3</employe_ref>
+                <employe_ref>4</employe_ref>
+            </employes>
+        </vol>
+
+    </vols>
+</aeroport>
